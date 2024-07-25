@@ -13,8 +13,7 @@ done
 mysql < /etc/mysql/init.sql
 
 # Start MariaDB in the foreground to keep the container running
-exec mysqld_safe
-
+# exec mysqld_safe
 
 # mysql_install_db
 
@@ -23,7 +22,7 @@ exec mysqld_safe
 # #Check if the database exists
 
 # if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
-# then 
+# then
 
 # 	echo "Database already exists"
 # else
@@ -41,7 +40,7 @@ exec mysqld_safe
 # Y
 # _EOF_
 
-# #Add a root user on 127.0.0.1 to allow remote connexion 
+# #Add a root user on 127.0.0.1 to allow remote connexion
 # #Flush privileges allow to your sql tables to be updated automatically when you modify it
 # #mysql -uroot launch mysql command line client
 # echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
@@ -57,4 +56,4 @@ exec mysqld_safe
 
 # /etc/init.d/mysql stop
 
-# exec "$@"
+exec "$@"

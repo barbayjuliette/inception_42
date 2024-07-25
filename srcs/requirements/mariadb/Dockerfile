@@ -1,5 +1,5 @@
 
-# MariaDB will be the database to store information 
+# MariaDB will be the database to store information
 # about our wordpress users and settings.
 # We have to create the Mariadb image and create 2 users.
 
@@ -76,7 +76,9 @@ COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/.
 COPY ./tools/init.sql /etc/mysql/init.sql
 COPY ./tools/mariadb-config.sh /mariadb-config.sh
 
-RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld && chmod +x /mariadb-config.sh && chmod +x /etc/mysql/init.sql 
+RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld && chmod +x /mariadb-config.sh && chmod +x /etc/mysql/init.sql
 RUN mkdir -p /var/log/mysql && chown mysql:mysql /var/log/mysql
+
+EXPOSE 3306
 
 CMD ["/mariadb-config.sh"]

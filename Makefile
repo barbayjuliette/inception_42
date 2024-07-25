@@ -8,8 +8,10 @@ WP_DATA = ${HOME}/data/wordpress
 DB_DATA = ${HOME}/data/mariadb
 RM = rm -rf
 
+all: up
+
 up:
-	@echo "$(RED)-->$(CYAN) Creating and directories and containers $(RESET)"
+	@echo "$(RED)-->$(CYAN) Creating directories and containers $(RESET)"
 	@mkdir -p $(WP_DATA)
 	@mkdir -p $(DB_DATA)
 	@docker-compose -f $(DOCKER_COMPOSE_FILE) up --build -d

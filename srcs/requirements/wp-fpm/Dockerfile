@@ -8,6 +8,8 @@ COPY ./conf/wordpress-conf.sh .
 
 RUN chmod +x wordpress-conf.sh
 
+EXPOSE 9000
+
 CMD [ "./wordpress-conf.sh" ]
 
 
