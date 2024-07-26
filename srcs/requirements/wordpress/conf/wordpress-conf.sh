@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Wait for MariaDB to be ready
-until mysqladmin ping -hmariadb --silent; do
-  echo "Waiting for MariaDB to be ready..."
-  sleep 2
-done
-
 cd /var/www/html
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar

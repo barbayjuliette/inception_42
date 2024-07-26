@@ -1,17 +1,13 @@
 FROM debian:latest
 
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y curl php-fpm php-mysql default-mysql-client
+    && apt-get install -y php-fpm
 
 COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
-COPY ./conf/wordpress-conf.sh .
 
-RUN chmod +x wordpress-conf.sh
+# EXPOSE 9000
 
-EXPOSE 9000
-
-CMD [ "./wordpress-conf.sh" ]
-
+CMD ["php-fpm8.2", "-F"]
 
 # COPY ./conf/wordpress-conf.sh /
 

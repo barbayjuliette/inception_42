@@ -18,7 +18,7 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 # RUN chown -R www-data:www-data /var/www/wordpress
 
 # Testing
-COPY index.html /usr/share/nginx/html/index.html
+# COPY index.html /usr/share/nginx/html/index.html
 
 EXPOSE 443
 

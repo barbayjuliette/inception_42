@@ -1,28 +1,40 @@
 version: '3.8'
 
 services:
+  # wordpress:
+  #   container_name: wordpress
+  #   build: requirements/wordpress
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - wordpress_data:/var/www/html
+  #   # depends_on:
+  #   #   - mariadb
+  #   networks:
+  #     - inception
+  #   restart: always
+
   wordpress:
+    # default port 9000 (FastCGI)
+    image: wordpress:5-fpm
     container_name: wordpress
-    build: requirements/wp-fpm
     env_file:
       - .env
+    restart: unless-stopped
+    networks:
+      - inception
     volumes:
       - wordpress_data:/var/www/html
-    depends_on:
-      - mariadb
-    networks:
-      - inception
-    restart: always
-
-  mariadb:
-    container_name: mariadb
-    build: requirements/mariadb
-    env_file: .env
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - inception
-    restart: on-failure
+    
+  # mariadb:
+  #   container_name: mariadb
+  #   build: requirements/mariadb
+  #   env_file: .env
+  #   volumes:
+  #     - mariadb_data:/var/lib/mysql
+  #   networks:
+  #     - inception
+  #   restart: on-failure
 
   nginx:
     container_name: nginx
@@ -34,7 +46,7 @@ services:
     networks:
       - inception
     depends_on:
-      - mariadb
+      # - mariadb
       - wordpress
     restart: unless-stopped
     # env_file: .env
