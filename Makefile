@@ -36,9 +36,8 @@ clean: stop
 	@docker rm $$(docker ps -qa) || true
 	@docker rmi -f $$(docker images -a -q) || true
 	@docker-compose -f $(DOCKER_COMPOSE_FILE) down --volumes || true
-	@docker network rm inception || true
-	@$(RM) $(WP_DATA) || true
-	@$(RM) $(DB_DATA) || true
+	@docker network prune-f || true
+	@$(RM) ${HOME}/data/ || true
 	@echo "$(RED)-->$(CYAN) All clean $(RESET)"
 
 logs:
