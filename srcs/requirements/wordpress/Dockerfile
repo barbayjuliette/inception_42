@@ -1,7 +1,7 @@
 FROM debian:latest
 
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y php-fpm curl php-mysqli
+    && apt-get install -y php-fpm curl php-mysqli default-mysql-client
 
 RUN mkdir -p /var/www/html
 
