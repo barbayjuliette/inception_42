@@ -27,6 +27,20 @@ services:
   #     - wordpress_data:/var/www/html
 
   # mariadb:
+  #   image: mariadb
+  #   container_name: mariadb
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+  #     MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+  #     MYSQL_USER: ${WORDPRESS_DB_USER}
+  #     MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+  #   volumes:
+  #     - mariadb_data:/var/lib/mysql
+  #   networks:
+  #     - inception
+  #   restart: on-failure
+
+  # mariadb:
     # container_name: mariadb
     # build: requirements/mariadb
     # env_file: .env
