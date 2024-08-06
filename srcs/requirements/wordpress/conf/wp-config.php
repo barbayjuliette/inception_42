@@ -15,7 +15,11 @@ define('NONCE_SALT',       'put your unique phrase here');
 
 $table_prefix = 'wp_';
 
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strpos($_SERVER['HTTP_X_FORWARDED_PROTO'], 'https') !== false) {
+	$_SERVER['HTTPS'] = 'on';
+}
 
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');

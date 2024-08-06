@@ -52,13 +52,8 @@ services:
 
   mariadb:
     image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: '${WORDPRESS_DB_PASSWORD}'
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_DATABASE: '${WORDPRESS_DB_DATABASE}'
-      MYSQL_USER: '${WORDPRESS_DB_USERNAME}'
-      MYSQL_PASSWORD: '${WORDPRESS_DB_PASSWORD}'
-      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    env_file:
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
