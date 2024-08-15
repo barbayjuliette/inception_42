@@ -64,21 +64,17 @@
 
 # CMD ["mariadb-config.sh"]
 
-# Test
-
 FROM debian:bullseye
 
 # Update and install packages
 RUN apt-get update && apt-get upgrade --yes && \
-    apt-get install -y mariadb-server mariadb-client
+    apt-get install -y --no-install-recommends --no-install-suggests mariadb-server && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/.
-COPY ./tools/init.sql /etc/mysql/init.sql
-COPY ./tools/mariadb-config.sh /mariadb-config.sh
-
-RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld && chmod +x /mariadb-config.sh && chmod +x /etc/mysql/init.sql
-RUN mkdir -p /var/log/mysql && chown mysql:mysql /var/log/mysql
+COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools/maria-setup.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 3306
 
-CMD ["/mariadb-config.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
