@@ -1,11 +1,5 @@
 #!/bin/bash
 
-DB_NAME=thedatabase
-DB_USER=theuser
-DB_PASSWORD=abc
-DB_PASS_ROOT=123
-
-
 # Start MariaDB service
 service mariadb start
 
@@ -35,4 +29,4 @@ rm -f db.sql
 sleep 5
 service mariadb stop
 
-exec $@
+/usr/bin/mysqld_safe

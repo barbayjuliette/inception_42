@@ -1,24 +1,31 @@
-FROM debian:latest
+FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y php-fpm curl php-mysqli default-mysql-client
 
-
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-
 RUN mkdir -p /var/www/html
 
-COPY ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
-COPY ./conf/wordpress-conf.sh /
+RUN curl -O https://wordpress.org/latest.tar.gz && \
+	tar -zxvf latest.tar.gz && \
+	rm latest.tar.gz && \
+	mv wordpress/* /var/www/html/ && \
+	rmdir wordpress && \
+	chown -R www-data:www-data /var/www/html && \
+	chmod -R 755 /var/www/html
 
-RUN chmod +x wordpress-conf.sh
+
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
+COPY ./conf/wordpress-conf.sh /var/www/wordpress-conf.sh
+COPY ./conf/wp-config.php /var/www//wp-config.php
+
+RUN chmod +x /var/www/wordpress-conf.sh
 
 EXPOSE 9000
 
 # WORKDIR /var/www/html
 
-RUN "./wordpress-conf.sh"
 # COPY ./conf/wp-config.php /var/www/html/wp-config.php
 
-CMD ["php-fpm8.2", "-F"]
+ENTRYPOINT [ "/var/www/wordpress-conf.sh" ]
+
+CMD ["/usr/sbin/php-fpm7.4", "-F"]

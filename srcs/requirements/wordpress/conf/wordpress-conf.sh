@@ -1,29 +1,24 @@
-# !/bin/bash
+#! /bin/bash
 
+	# sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" "/etc/php/7.3/fpm/pool.d/www.conf";
+	chown -R www-data:www-data /var/www/*;
+	chown -R 755 /var/www/*;
+	mkdir -p /run/php/;
+	touch /run/php/php7.4-fpm.pid;
 
+if [ ! -f /var/www/html/wp-config.php ]; then
+	echo "Wordpress: setting up..."
+	mkdir -p /var/www/html
+	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
+	chmod +x wp-cli.phar;
+	mv wp-cli.phar /usr/local/bin/wp;
+	cd /var/www/html;
+	wp core download --allow-root;
+	mv /var/www/wp-config.php /var/www/html/
+	echo "Wordpress: creating users..."
+	wp core install --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL}
+	wp user create --allow-root ${WP_USER_LOGIN} ${WP_USER_EMAIL} --user_pass=${WP_USER_PASSWORD};
+	echo "Wordpress: set up!"
+fi
 
-curl -O https://wordpress.org/latest.tar.gz && \
-tar -zxvf latest.tar.gz && \
-rm latest.tar.gz && \
-mv wordpress/* /var/www/html/ && \
-rmdir wordpress && \
-chown -R www-data:www-data /var/www/html && \
-chmod -R 755 /var/www/html
-#check if wp-config.php exist
-
-# Download and install WordPress
-# wp core download --path=/var/www/html --allow-root
-
-# # Install WordPress
-# wp core install --path=/var/www/html --url=${WORDPRESS_URL} --title="${WORDPRESS_TITLE}" --admin_user=${WORDPRESS_ADMIN_USER} --admin_password=${MYSQL_ROOT_PASSWORD} --allow-root
-
-# # Create wp-config.php
-# wp config create --path=/var/www/html --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${MYSQL_HOST} --allow-root
-
-# # Ensure proper ownership and permissions
-# chown -R www-data:www-data /var/www/html
-# find /var/www/html -type d -exec chmod 755 {} \;
-# find /var/www/html -type f -exec chmod 644 {} \;
-
-# Start PHP-FPM
-# exec "$@"
+exec "$@"

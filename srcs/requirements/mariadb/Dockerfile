@@ -6,9 +6,9 @@ RUN apt-get update && apt-get upgrade --yes && \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./tools/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY ./tools/maria-setup.sh /bin/
-RUN chmod +x /bin/maria-setup.sh
+COPY ./tools/maria-setup.sh /
+RUN chmod +x /maria-setup.sh
 
 EXPOSE 3306
 
-CMD	["maria-setup.sh", "mysqld_safe"]
+ENTRYPOINT [ "sh", "/maria-setup.sh" ]
