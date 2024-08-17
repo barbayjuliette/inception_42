@@ -24,7 +24,7 @@ EXPOSE 9000
 
 # WORKDIR /var/www/html
 
-# COPY ./conf/wp-config.php /var/www/html/wp-config.php
+COPY ./conf/wp-config.php /var/www/html/wp-config.php
 
 ENTRYPOINT [ "/var/www/wordpress-conf.sh" ]
 

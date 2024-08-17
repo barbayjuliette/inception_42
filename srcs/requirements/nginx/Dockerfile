@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt-get update && apt-get upgrade --yes && apt-get install -y nginx openssl
 
-RUN mkdir -p /etc/ssl
+RUN mkdir -p /etc/ssl/certs
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/ssl/inception.key \
