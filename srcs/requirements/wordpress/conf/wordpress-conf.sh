@@ -24,7 +24,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp core config --dbhost=${DB_HOST} --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --allow-root
 
 	echo "Wordpress setting up DB"
-	wp core install --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL}
+	wp core install --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --skip-email 
 
 	echo "Wordpress: Creating users..."
 	echo "WP_USER_LOGIN: ${WP_USER_LOGIN}"

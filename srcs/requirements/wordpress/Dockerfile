@@ -16,7 +16,7 @@ RUN curl -O https://wordpress.org/latest.tar.gz && \
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./conf/wordpress-conf.sh /var/www/wordpress-conf.sh
-COPY ./conf/wp-config.php /var/www//wp-config.php
+# COPY ./conf/wp-config.php /var/www//wp-config.php
 
 RUN chmod +x /var/www/wordpress-conf.sh
 
