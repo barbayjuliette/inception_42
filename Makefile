@@ -37,6 +37,8 @@ clean: stop
 	@docker rmi -f $$(docker images -a -q) || true
 	@docker-compose -f $(DOCKER_COMPOSE_FILE) down --volumes || true
 	@docker network prune -f || true
+	sudo rm -rf $(WP_DATA)
+	sudo rm -rf $(DB_DATA)
 	@echo "$(RED)-->$(CYAN) All clean $(RESET)"
 
 logs:
