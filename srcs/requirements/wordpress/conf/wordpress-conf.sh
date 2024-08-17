@@ -16,10 +16,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
 
 	echo "Setting up Wordpress..."
-	wp core download --path=/var/www/wordpress --allow-root;
+	wp core download --path=/var/www/html --allow-root;
 
 	echo "Creating wp-config.php"
 	# mv /var/www/wp-config.php /var/www/html
+	wp config create --dbhost=${DB_HOST} --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --allow-root --path=/var/www/html
 	wp core config --dbhost=${DB_HOST} --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --allow-root
 
 	echo "Wordpress setting up DB"
@@ -32,3 +33,4 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 fi
 
 exec "$@"
+

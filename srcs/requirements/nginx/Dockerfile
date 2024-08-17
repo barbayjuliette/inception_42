@@ -11,11 +11,11 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
-# Create wordpress directory
-RUN mkdir -p /var/www/wordpress
+# # Create wordpress directory
+# RUN mkdir -p /var/www/wordpress
 
-# change the owner of the wordpress directory to www-data (default user and group for nginx)
-RUN chown -R www-data:www-data /var/www/wordpress
+# # change the owner of the wordpress directory to www-data (default user and group for nginx)
+# RUN chown -R www-data:www-data /var/www/wordpress
 
 # Testing
 # COPY index.html /usr/share/nginx/html/index.html
