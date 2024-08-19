@@ -13,7 +13,6 @@ RUN curl -O https://wordpress.org/latest.tar.gz && \
 	chown -R www-data:www-data /var/www/html && \
 	chmod -R 755 /var/www/html
 
-
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./conf/wordpress-conf.sh /var/www/wordpress-conf.sh
 
