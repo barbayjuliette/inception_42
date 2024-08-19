@@ -8,13 +8,16 @@
 if [ ! -f /var/www/html/wp-config.php ]; then
 
 	# mv /tmp/wp-config.php /var/www/html/
-
+	
 	echo "Downloading WP-CLI"
 	mkdir -p /var/www/html
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
 	chmod +x wp-cli.phar;
 	mv wp-cli.phar /usr/local/bin/wp;
-	cd /var/www/html;
+	#cd /var/www/html;
+	
+        # Copy WordPress config file
+        cp var/www/html/wp-config-sample.php var/www/html/wp-config.php
 
 	sed -i 's/database_name_here/'"$DB_NAME"'/g' var/www/html/wp-config.php
 	sed -i 's/localhost/'"$DB_HOST"'/g' var/www/html/wp-config.php
@@ -22,7 +25,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	sed -i 's/password_here/'"$DB_PASSWORD"'/g' var/www/html/wp-config.php
 
 	# Copy WordPress config file
-	cp var/www/html/wp-config-sample.php var/www/html/wp-config.php
+#	cp var/www/html/wp-config-sample.php var/www/html/wp-config.php
 
 	sleep 5
 	# echo "Setting up Wordpress..."
