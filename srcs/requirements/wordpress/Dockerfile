@@ -21,10 +21,6 @@ RUN chmod +x /var/www/wordpress-conf.sh
 
 EXPOSE 9000
 
-# WORKDIR /var/www/html
-
-COPY ./conf/wp-config.php /temp
-
 ENTRYPOINT [ "/var/www/wordpress-conf.sh" ]
 
 CMD ["/usr/sbin/php-fpm7.4", "-F"]
