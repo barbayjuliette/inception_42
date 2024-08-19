@@ -68,7 +68,6 @@ services:
     networks:
       - inception
     depends_on:
-      - mariadb
       - wordpress
     restart: unless-stopped
     # env_file: .env

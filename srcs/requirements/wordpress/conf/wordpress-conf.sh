@@ -5,6 +5,11 @@
 	mkdir -p /run/php/;
 	touch /run/php/php7.4-fpm.pid;
 
+	echo "Waiting for MariaDB to be available..."
+	while ! mysqladmin ping -h"$DB_HOST" --silent; do
+  		sleep 1
+	done
+
 if [ ! -f /var/www/html/wp-config.php ]; then
 	
 	echo "Downloading WP-CLI"
