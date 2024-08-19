@@ -1,5 +1,5 @@
 #! /bin/bash
-	# sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" "/etc/php/7.4/fpm/pool.d/www.conf";
+#	sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/" "/etc/php/7.4/fpm/pool.d/www.conf";
 	chown -R www-data:www-data /var/www/*;
 	chmod -R 755 /var/www/*;
 	mkdir -p /run/php/;
@@ -40,7 +40,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp core install --path=/var/www/html --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --skip-email 
 
 	echo "Wordpress: Creating users..."
-	wp user create --path=/var/www/html --allow-root ${DB_USER} ${DB_EMAIL} --user_pass=${DB_PASSWORD};
+	wp user create --path=/var/www/html --allow-root ${DB_USER} ${DB_EMAIL} --user_pass=${DB_PASSWORD} --role=author;
 	echo "Wordpress: set up!"
 fi
 
