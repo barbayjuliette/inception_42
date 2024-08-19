@@ -16,7 +16,6 @@ RUN curl -O https://wordpress.org/latest.tar.gz && \
 
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d
 COPY ./conf/wordpress-conf.sh /var/www/wordpress-conf.sh
-# COPY ./conf/wp-config.php /var/www//wp-config.php
 
 RUN chmod +x /var/www/wordpress-conf.sh
 
@@ -24,7 +23,7 @@ EXPOSE 9000
 
 # WORKDIR /var/www/html
 
-COPY ./conf/wp-config.php /var/www/html/wp-config.php
+COPY ./conf/wp-config.php /temp
 
 ENTRYPOINT [ "/var/www/wordpress-conf.sh" ]
 

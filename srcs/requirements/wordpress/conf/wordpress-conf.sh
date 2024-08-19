@@ -7,6 +7,8 @@
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
+	mv /tmp/wp-config.php /var/www/html/
+
 	echo "Downloading WP-CLI"
 	mkdir -p /var/www/html
 	curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar;
