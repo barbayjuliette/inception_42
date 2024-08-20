@@ -1,42 +1,18 @@
 services:
   wordpress:
     container_name: wordpress
+    ports:
+      - "8080:80"
     build: requirements/wordpress
     env_file:
       - .env
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/wordpress
     depends_on:
       - mariadb
     networks:
       - inception
     restart: always
-
-  # wordpress:
-  #   # default port 9000 (FastCGI)
-  #   image: wordpress:5-fpm
-  #   container_name: wordpress
-  #   env_file:
-  #     - .env
-  #   restart: unless-stopped
-  #   networks:
-  #     - inception
-  #   volumes:
-  #     - wordpress_data:/var/www/html
-
-  # mariadb:
-  #   image: mariadb
-  #   container_name: mariadb
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-  #     MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
-  #     MYSQL_USER: ${WORDPRESS_DB_USER}
-  #     MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-  #   volumes:
-  #     - mariadb_data:/var/lib/mysql
-  #   networks:
-  #     - inception
-  #   restart: on-failure
 
   mariadb:
     container_name: mariadb
@@ -46,32 +22,21 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
-    restart: on-failure
-
-  # mariadb:
-  #   image: mariadb
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - mariadb_data:/var/lib/mysql
-  #   networks:
-  #     - inception
-  #   restart: unless-stopped
+    restart: always
 
   nginx:
     container_name: nginx
     build: requirements/nginx
     ports:
-      - "8080:443"
+      - "443:443"
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/wordpress
     networks:
       - inception
     depends_on:
-      - mariadb
       - wordpress
-    restart: unless-stopped
-    # env_file: .env
+    restart: always
+    env_file: .env
 
 networks:
   inception:
