@@ -6,10 +6,11 @@ service mariadb start
 # Wait for MariaDB to start
 echo "Waiting for MariaDB to start..."
 until mysqladmin ping --silent; do
-  echo "MariaDB is not up yet..."
-  sleep 1
+	echo "MariaDB is not up yet..."
+	sleep 1
 done
 
+# Create sql script
 cat <<EOF > db.sql
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';
@@ -24,7 +25,6 @@ mysql -u root < db.sql
 
 # Cleanup: remove the SQL file after execution
 rm -f db.sql
-
 
 sleep 5
 service mariadb stop
