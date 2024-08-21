@@ -27,6 +27,7 @@ mysql -u root < db.sql
 rm -f db.sql
 
 sleep 5
+
 service mariadb stop
 
 /usr/bin/mysqld_safe

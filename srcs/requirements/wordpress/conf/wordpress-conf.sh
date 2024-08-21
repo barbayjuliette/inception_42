@@ -25,10 +25,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	sed -i 's/username_here/'"$DB_USER"'/g' var/www/html/wp-config.php
 	sed -i 's/password_here/'"$DB_PASSWORD"'/g' var/www/html/wp-config.php
 
-	sleep 5
-
 	echo "Wordpress setting up DB"
-	wp core install --path=/var/www/html --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --skip-email
+	while ! wp core install --path=/var/www/html --allow-root --url=${WP_URL} --title=${WP_TITLE} --admin_user=${WP_ADMIN_LOGIN} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL} --skip-email; do
+		echo "TRYING AGAIN..."
+		sleep 1
+	done
 
 	echo "Wordpress: Creating users..."
 	wp user create --path=/var/www/html --allow-root ${DB_USER} ${DB_EMAIL} --user_pass=${DB_PASSWORD} --role=author;
